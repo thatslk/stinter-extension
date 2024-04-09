@@ -1,0 +1,28 @@
+{
+	"name": "StInter",
+	"version": "1.0",
+	"manifest_version": 2, 
+
+	"permissions": [
+		"webRequest",
+		"webRequestBlocking",
+		"tabs",
+  		"<all_urls>"
+	  ],
+
+	  "web_accessible_resources": [
+		"jsons/activity.json"
+		],
+
+	  "background": {
+		"scripts": ["background.js"],
+		"persistent": true
+	  },
+
+	"content_scripts": [
+		{
+			"matches": ["*://stepik.org/*"],
+			"js": ["content.js"]
+		}
+	]
+}
