@@ -1,0 +1,20 @@
+{
+    "meta": {
+        "page": 1,
+        "has_next": false,
+        "has_previous": false
+    },
+    "user-activity-summaries": [
+        {
+            "id": 0,
+            "recent_strike": 0,
+            "solved_today": 34,
+            "max_strike": 34,
+            "solved": 193,
+            "days": 16,
+            "pins": [
+
+            ]
+        }
+    ]
+}

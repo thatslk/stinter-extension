@@ -3,7 +3,7 @@ chrome.webRequest.onBeforeRequest.addListener(
     const url = new URL(details.url);
     if (
       details.method === "GET" &&
-      url.pathname.startsWith("/api/user-activities")
+      url.pathname.startsWith("/api/user-activities/")
     ) {
       const activityJson = loadLocalJsonFile("jsons/activity.json");
 
@@ -11,6 +11,17 @@ chrome.webRequest.onBeforeRequest.addListener(
         redirectUrl:
           "data:application/json;charset=UTF-8," +
           encodeURIComponent(activityJson),
+      };
+    } else if (
+      details.method === "GET" &&
+      url.pathname.startsWith("/api/user-activity-summaries/")
+    ) {
+      const summariesJson = loadLocalJsonFile("jsons/summaries.json");
+
+      return {
+        redirectUrl:
+          "data:application/json;charset=UTF-8," +
+          encodeURIComponent(summariesJson),
       };
     }
   },
