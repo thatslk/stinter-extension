@@ -10,18 +10,23 @@ chrome.webRequest.onBeforeRequest.addListener(
       return {
         redirectUrl:
           "data:application/json;charset=UTF-8," +
-          encodeURIComponent(activityJson),
+          encodeURIComponent(JSON.stringify(activityJson)),
       };
     } else if (
       details.method === "GET" &&
       url.pathname.startsWith("/api/user-activity-summaries/")
     ) {
+      const activityJson = loadLocalJsonFile("jsons/activity.json");
       const summariesJson = loadLocalJsonFile("jsons/summaries.json");
+
+      summariesJson["user-activity-summaries"][0]["pins"] = activityJson[
+        "user-activities"
+      ][0]["pins"].slice(0, 7);
 
       return {
         redirectUrl:
           "data:application/json;charset=UTF-8," +
-          encodeURIComponent(summariesJson),
+          encodeURIComponent(JSON.stringify(summariesJson)),
       };
     }
   },
@@ -33,5 +38,5 @@ const loadLocalJsonFile = (filename) => {
   const xhr = new XMLHttpRequest();
   xhr.open("GET", chrome.runtime.getURL(filename), false);
   xhr.send();
-  return xhr.responseText;
+  return JSON.parse(xhr.responseText);
 };
